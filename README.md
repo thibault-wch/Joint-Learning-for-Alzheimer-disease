@@ -94,7 +94,7 @@ label**.
 
 ### Training details
 
-We implement all the methods in this paper in the **PyTorch** library and train them on **2 NVIDIA V100 32G** Tensor
+We implement the proposed method in the **PyTorch** library and train them on **2 NVIDIA V100 32G** Tensor
 Core GPUs.
 All the networks are initialized by the **kaiming** method and trained
 using the Adam optimization algorithm with $\beta_1 = 0.5$ and $\beta_2 = 0.999$.
@@ -126,7 +126,15 @@ sh diag_pretrain.sh
 cd ./scripts/joint_stage
 sh joint_learning.sh
 ```
-
+### Inference details
+We also provide the inference codes for the synthesis model and diagnosis network.
+```bash
+cd ./scripts
+# for synthesis model
+sh test_G.sh
+# for diagnosis network
+sh test_Cls.sh
+```
 ## Folder structure
 
 ```
@@ -158,6 +166,6 @@ Joint_Learning_for_Alzheimer_disease
 
 - We gratefully thank the **ADNI**, **AIBL**, and **NACC** investigators for providing access to the data.
 
-- 
+- Our code is inspired by [TSM](https://github.com/mit-han-lab/temporal-shift-module),[pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix),and [SwitchableCycleGAN](https://github.com/YSerin/TMI_SwitchableCycleGAN).
 
 
