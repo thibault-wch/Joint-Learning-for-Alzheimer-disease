@@ -166,6 +166,6 @@ Joint_Learning_for_Alzheimer_disease
 
 - We gratefully thank the **ADNI**, **AIBL**, and **NACC** investigators for providing access to the data.
 
-- Our code is inspired by [TSM](https://github.com/mit-han-lab/temporal-shift-module),[pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix),and [SwitchableCycleGAN](https://github.com/YSerin/TMI_SwitchableCycleGAN).
+- Our code is inspired by [TSM](https://github.com/mit-han-lab/temporal-shift-module),[Restormer](https://github.com/swz30/Restormer), [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix),and [SwitchableCycleGAN](https://github.com/YSerin/TMI_SwitchableCycleGAN).
 
 
