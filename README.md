@@ -1,17 +1,14 @@
 # Joint learning for Alzheimer's disease
 
-This is a code implemention of the **joint learning framework** proposed in the manuscipt "**Joint learning Framework of
-cross-modal synthesis and diagnosis for Alzheimer's disease with incomplete modality by mining underlying shared
-modality information**".
+This is a code implementation of the **joint learning framework** proposed in the manuscript "**Joint learning Framework of cross-modal synthesis and diagnosis for Alzheimer's disease with incomplete modality by mining underlying shared modality information**".
 
 ## Introduction
-
 The diagnosis of AD can benefit from multiple modalities, such as MRI and PET. However, the lack of PET modality is
 often practically unavoidable due to the high cost associated with multiple examinations, poorly equipped hospitals, and
-difficulties in data collection. In this work, we explore how to better mine the **underlying shared modality
-information** in both synthesis and diagnosis phases for improved AD diagnosis. Towards this goal, we propose a novel
+difficulties in data collection. This work explores how to better mine the **underlying shared modality
+information** in synthesis and diagnosis phases for improved AD diagnosis. Towards this goal, we propose a novel
 **joint learning framework of unsupervised cross-modal synthesis and diagnosis for AD with incomplete modality**.
-Additionally, our method are evaluated at the same internal dataset (**ADNI**) and two external datasets (**AIBL and
+Additionally, our method is evaluated at the same internal dataset (**ADNI**) and two external datasets (**AIBL and
 NACC**), and the results demonstrated that our framework has good generalization ability.
 
 ### Overall joint learning framework
@@ -66,7 +63,7 @@ at `./subject_ids.xlsx` for visitors to download.
 
 We first use Freesurfer, Flirt and Ants for preprocessing all MRI and PET images (see Supp. B for details). Furthermore,
 we transform the preprocessed `.nii.gz` brain files into `.npy` format.
-In addition, we reorganize and split them in the data pairs for `./utils/UnpairedDataset.py` using `pickle`, the
+In addition, we reorganize and split them into the data pairs for `./utils/UnpairedDataset.py` using `pickle`, the
 concrete data pair demo as shown in:
 
 ```python
