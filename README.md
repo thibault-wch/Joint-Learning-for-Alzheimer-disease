@@ -118,7 +118,7 @@ sh diag_pretrain.sh
 ```
 
 #### Stage 3: Joint train for both the networks
-
+First, move the weights of the pre-trained cross-modal and diagnosis networks to the directory stored for the joint training process. Make sure to rename them with the prefix 'pretrained'. Then, execute the provided shell script.
 ```bash
 cd ./scripts/joint_stage
 sh joint_learning.sh
