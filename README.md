@@ -1,13 +1,11 @@
 # Joint learning for Alzheimer's disease
 
-This is a code implementation of the **joint learning framework** proposed in the manuscript "**Joint learning Framework of cross-modal synthesis and diagnosis for Alzheimer's disease with incomplete modality by mining underlying shared modality information**".
+This is a code implementation of the **joint learning framework** proposed in the manuscript "**Joint learning Framework of cross-modal synthesis and diagnosis for Alzheimer's disease by mining underlying shared modality information**".
 
 ## Introduction
-The diagnosis of AD can benefit from multiple modalities, such as MRI and PET. However, the lack of PET modality is
-often practically unavoidable due to the high cost associated with multiple examinations, poorly equipped hospitals, and
-difficulties in data collection. This work explores how to better mine the **underlying shared modality
-information** in synthesis and diagnosis phases for improved AD diagnosis. Towards this goal, we propose a novel
-**joint learning framework of unsupervised cross-modal synthesis and diagnosis for AD with incomplete modality**.
+Among various neuroimaging modalities used to diagnose AD, functional positron emission tomography (**PET**) has higher sensitivity than structural magnetic resonance imaging (**MRI**), but it is also **costlier and often not available** in many hospitals.
+How to **leverage massive unpaired unlabeled PET to improve the diagnosis performance of AD from MRI** becomes rather important. 
+To address this challenge, this paper proposes a novel **joint learning framework of unsupervised cross-modal synthesis and AD diagnosis by mining underlying shared modality information**, improving the AD diagnosis from MRI while synthesizing more discriminative PET images.
 Additionally, our method is evaluated at the same internal dataset (**ADNI**) and two external datasets (**AIBL and
 NACC**), and the results demonstrated that our framework has good generalization ability.
 
