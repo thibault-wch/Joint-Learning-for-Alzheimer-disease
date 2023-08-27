@@ -1,0 +1,17 @@
+python ../../Diag_pretrain.py \
+--gpu_ids 0 \
+--workers 8 \
+--name diag_net_pretrained \
+--checkpoints_dir /data/chwang/Log/DiagNet \
+--lr 0.0001 \
+--save_freq 10 \
+--batch_size 2 \
+--n_epochs 80 \
+--beta1 0.5 \
+--gamma 0.95 \
+--init_type kaiming \
+--init_gain 0.02 \
+--use_early_stop \
+--patience 10 \
+--load_size 256 \
+--crop_size 256

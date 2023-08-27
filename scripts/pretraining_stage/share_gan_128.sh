@@ -1,0 +1,36 @@
+python ../../Frame_train.py \
+--gpu_ids 0 \
+--lambda_A 10. \
+--lambda_B 10. \
+--lambda_identity 0.3 \
+--model share_gan \
+--name share_gan_pretrained \
+--checkpoints_dir /data/chwang/Log/ShareGAN \
+--batch_size 4 \
+--update_step 2 \
+--eval_freq 400 \
+--use_earlystop \
+--patience 20 \
+--workers 8 \
+--load_size 256 \
+--crop_size 128 \
+--netG ShareSynNet \
+--netD Defined \
+--ndf 64 \
+--n_layers_D 5 \
+--init_type kaiming \
+--lr 0.0002 \
+--lr_G 0.0002 \
+--lr_D 0.0002 \
+--beta1 0.5 \
+--norm instance \
+--lr_policy lambda \
+--lr_decay_iters 10 \
+--lr_num 0.95 \
+--epoch_count 1 \
+--niter 15 \
+--niter_decay 65 \
+--save_epoch_freq 10 \
+--save_latest_freq 1000 \
+--pool_size 10 \
+
