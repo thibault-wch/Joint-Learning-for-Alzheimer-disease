@@ -1,4 +1,4 @@
-# Joint learning for Alzheimer's disease
+# [MEDIAM 2023] Joint learning for Alzheimer's disease
 
 This is a code implementation of the **joint learning framework** proposed in the manuscript "**Joint learning Framework of cross-modal synthesis and diagnosis for Alzheimer's disease by mining underlying shared modality information**".
 
