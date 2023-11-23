@@ -166,12 +166,13 @@ Joint_Learning_for_Alzheimer_disease
 If you find this work useful for your research, please cite [our paper](https://doi.org/10.1016/j.media.2023.103032) :
 
 ```
-@article{wang2023joint,
+@article{wang2024joint,
   title={Joint learning framework of cross-modal synthesis and diagnosis for Alzheimer’s disease by mining underlying shared modality information},
   author={Wang, Chenhui and Piao, Sirong and Huang, Zhizhong and Gao, Qi and Zhang, Junping and Li, Yuxin and Shan, Hongming and others},
   journal={Medical Image Analysis},
-  pages={103032},
-  year={2023},
+  volume = {91},
+  pages = {103032},
+  year = {2024},
   publisher={Elsevier}
 }
 ```
