@@ -1,6 +1,6 @@
 # Joint learning for Alzheimer's disease
 
-[MEDIAM 2023] This is a code implementation of the **joint learning framework** proposed in the manuscript "**Joint learning Framework of cross-modal synthesis and diagnosis for Alzheimer's disease by mining underlying shared modality information**".
+**[MedIA 2023]** This is a code implementation of the **joint learning framework** proposed in the manuscript "**Joint learning Framework of cross-modal synthesis and diagnosis for Alzheimer's disease by mining underlying shared modality information**".[[Paper]](https://doi.org/10.1016/j.media.2023.103032) [[Supp.]](./readme_files/main_supp.pdf)
 
 ## Introduction
 Among various neuroimaging modalities used to diagnose AD, functional positron emission tomography (**PET**) has higher sensitivity than structural magnetic resonance imaging (**MRI**), but it is also **costlier and often not available** in many hospitals.
@@ -162,4 +162,17 @@ Joint_Learning_for_Alzheimer_disease
 
 - Our code is inspired by [TSM](https://github.com/mit-han-lab/temporal-shift-module),[Restormer](https://github.com/swz30/Restormer), [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix),and [SwitchableCycleGAN](https://github.com/YSerin/TMI_SwitchableCycleGAN).
 
+## Citation
+If you find this work useful for your research, please cite [our paper](https://doi.org/10.1016/j.media.2023.103032) :
+
+```
+@article{wang2023joint,
+  title={Joint learning framework of cross-modal synthesis and diagnosis for Alzheimer’s disease by mining underlying shared modality information},
+  author={Wang, Chenhui and Piao, Sirong and Huang, Zhizhong and Gao, Qi and Zhang, Junping and Li, Yuxin and Shan, Hongming and others},
+  journal={Medical Image Analysis},
+  pages={103032},
+  year={2023},
+  publisher={Elsevier}
+}
+```
 
