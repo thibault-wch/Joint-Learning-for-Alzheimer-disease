@@ -167,13 +167,13 @@ If you find this work useful for your research, please cite [our paper](https://
 
 ```
 @article{wang2024joint,
-  title={Joint learning framework of cross-modal synthesis and diagnosis for Alzheimer’s disease by mining underlying shared modality information},
-  author={Wang, Chenhui and Piao, Sirong and Huang, Zhizhong and Gao, Qi and Zhang, Junping and Li, Yuxin and Shan, Hongming and others},
-  journal={Medical Image Analysis},
+  title = {Joint learning framework of cross-modal synthesis and diagnosis for Alzheimer’s disease by mining underlying shared modality information},
+  author = {Wang, Chenhui and Piao, Sirong and Huang, Zhizhong and Gao, Qi and Zhang, Junping and Li, Yuxin and Shan, Hongming and others},
+  journal = {Medical Image Analysis},
   volume = {91},
   pages = {103032},
   year = {2024},
-  publisher={Elsevier}
+  publisher = {Elsevier}
 }
 ```
 
