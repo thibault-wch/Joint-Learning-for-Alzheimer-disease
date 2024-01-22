@@ -163,7 +163,7 @@ Joint_Learning_for_Alzheimer_disease
 - Our code is inspired by [TSM](https://github.com/mit-han-lab/temporal-shift-module),[Restormer](https://github.com/swz30/Restormer), [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix),and [SwitchableCycleGAN](https://github.com/YSerin/TMI_SwitchableCycleGAN).
 
 ## Citation
-If you find this work useful for your research, please cite [our paper](https://doi.org/10.1016/j.media.2023.103032) :
+If you find this work useful for your research, please 🌟 our project and cite [our paper](https://doi.org/10.1016/j.media.2023.103032) :
 
 ```
 @article{wang2024joint,
