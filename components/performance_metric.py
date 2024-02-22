@@ -2,6 +2,8 @@ import numpy as np
 import torch
 from pytorch_msssim import ssim
 
+# Note that we use the axial slice-wise performance metrics to evaluate all competing methods
+# and ours because the axial axis is mainly used in real clinical scenarios.
 
 def mean_absolute_error(image_true, image_generated):
     """Compute mean absolute error.
@@ -57,5 +59,3 @@ def structural_similarity_index(image_true, image_generated):
                        image_true[i, :, :].unsqueeze(0).unsqueeze(0), data_range=1, size_average=True)
     losses /= 256
     return losses
-
-    return ssim(image_generated, image_true, data_range=1, size_average=True)
