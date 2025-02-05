@@ -42,6 +42,7 @@ def evaluate_diagNetwork(model, valid_dataloaders):
             val_simple_cnt += labels.size(0)
             y_val_true.extend(np.ravel(np.squeeze(labels.cpu().detach().numpy())).tolist())
             y_val_pred.extend(np.ravel(np.squeeze(val_predicted.cpu().detach().numpy())).tolist())
+            outputs=outputs.softmax(dim=-1)
             val_prob_all.extend(outputs[:,
                                 1].cpu().detach().numpy())
             val_label_all.extend(labels.cpu())
