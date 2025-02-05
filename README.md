@@ -2,6 +2,8 @@
 
 **[MedIA 2024]** This is a code implementation of the **joint learning framework** proposed in the manuscript "**Joint learning Framework of cross-modal synthesis and diagnosis for Alzheimer's disease by mining underlying shared modality information**".[[Paper]](https://doi.org/10.1016/j.media.2023.103032) [[Supp.]](./readme_files/main_supp.pdf)
 
+🌟🌟🌟 We also plan to open a **unified codebase for 3D cross-modality medical synthesis** in [[code]](https://github.com/thibault-wch/A-Unified-3D-Cross-Modality-Synthesis-Codebase), including **updated multi-thread preprocessing steps for MRI and PET**, **a series of generated methods** (CNN-based, GAN-based, and Diffusion-based), and **full evaluation pipelines for 3D images**.
+
 ## Introduction
 Among various neuroimaging modalities used to diagnose AD, functional positron emission tomography (**PET**) has higher sensitivity than structural magnetic resonance imaging (**MRI**), but it is also **costlier and often not available** in many hospitals.
 How to **leverage massive unpaired unlabeled PET to improve the diagnosis performance of AD from MRI** becomes rather important. 
