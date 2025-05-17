@@ -3,17 +3,18 @@ import torch.nn as nn
 
 
 class AwareNet(nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, num_classes=2, basic_channels=64, slice_number=256):
         super(AwareNet, self).__init__()
         # [1] base feature extractor
-        self.basic_module = TimeDistributed(Basic_Fex())
+        self.basic_module = TimeDistributed(Basic_Fex(in_channels=basic_channels))
         # [2] slice-aware module
-        self.att_module = Attention()
+        self.att_module = Attention(c=slice_number, in_channels=basic_channels * 2)
         # [3] Fusion feature extractor
-        self.fusion_module = Fusion_Fex(num_classes=num_classes)
+        self.fusion_module = Fusion_Fex(num_classes=num_classes, in_channels=basic_channels * 2)
 
     def forward(self, x):
         x = self.basic_module(x, init=True)
+        print(x.shape)
         x, slice_attn, local_attn, alpha = self.att_module(x)
         x = self.fusion_module(x)
         x = torch.mean(x, axis=1)
@@ -23,17 +24,17 @@ class AwareNet(nn.Module):
 
 # [1] Basic feature extractor
 class Basic_Fex(nn.Module):
-    def __init__(self, expansion=4):
+    def __init__(self, expansion=4, in_channels=64):
         super(Basic_Fex, self).__init__()
         self.expansion = expansion
-        self.in_channels = 64
+        self.in_channels = in_channels
         self.conv1 = nn.Sequential(
-            nn.Conv2d(in_channels=1, out_channels=64, kernel_size=7, stride=2, padding=3, bias=False),
-            nn.BatchNorm2d(64),
+            nn.Conv2d(in_channels=1, out_channels=self.in_channels, kernel_size=7, stride=2, padding=3, bias=False),
+            nn.BatchNorm2d(self.in_channels),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2, padding=1))
-        self.layer1 = self._make_layer(BasicBlock, 64, 2, 1)
-        self.layer2 = self._make_layer(BasicBlock, 128, 2, 2)
+        self.layer1 = self._make_layer(BasicBlock, self.in_channels, 2, 1)
+        self.layer2 = self._make_layer(BasicBlock, self.in_channels * 2, 2, 2)
 
     def _make_layer(self, block, out_channels, num_blocks, stride):
         strides = [stride] + [1] * (num_blocks - 1)
@@ -52,43 +53,48 @@ class Basic_Fex(nn.Module):
 
 # [2] Slice-aware module
 class Attention(nn.Module):
-    def __init__(self):
+    def __init__(self, c=256, in_channels=128):
         super(Attention, self).__init__()
         self.loc_att = TimeDistributed(
-            nn.Sequential(nn.Conv2d(128, 1, kernel_size=1, stride=1), nn.LeakyReLU(0.2, inplace=True)))
-        self.k = nn.Conv2d(256, 256, kernel_size=3, padding=1, groups=256, bias=False)
-        self.q = nn.Conv2d(256, 1, kernel_size=1, bias=False)
+            nn.Sequential(nn.Conv2d(in_channels, 1, kernel_size=1, stride=1), nn.LeakyReLU(0.2, inplace=True)))
+        self.k = nn.Conv2d(c, c, kernel_size=3, padding=1, groups=c, bias=False)
+        self.q = nn.Conv2d(c, 1, kernel_size=1, bias=False)
         self.alpha = 32.0
 
     def forward(self, x):
         ori_x = x
+        b, s, c, h, w = ori_x.shape
         local_attention = self.loc_att(x)
+        print(local_attention.shape)
         x = local_attention.squeeze(2)
-        b, c, h, w = x.shape
-        k = self.k(x).reshape(b, c, -1)
+        k = self.k(x).reshape(b, s, -1)
         q = self.q(x).reshape(b, 1, -1)
+        print(q.shape, k.shape)
         q = torch.nn.functional.normalize(q, dim=-1)
         k = torch.nn.functional.normalize(k, dim=-1)
+        print(q.shape, k.shape)
         attn = (q @ k.transpose(-2, -1)).squeeze(1)
         attn *= self.alpha
         slice_attention = attn.softmax(dim=-1)
-        attn = slice_attention.reshape(b, 256, 1, 1, 1).expand(b, 256, 128, 32, 32)
+        attn = slice_attention.reshape(b, s, 1, 1, 1).expand(b, s, c, h, w)
         out = attn * ori_x
         return out + ori_x, slice_attention, local_attention, self.alpha
 
 
 # [3] Fusion feature extractor
 class Fusion_Fex(nn.Module):
-    def __init__(self, num_classes=2, expansion=4):
+    def __init__(self, num_classes=2, in_channels=128, expansion=4):
         super(Fusion_Fex, self).__init__()
         self.expansion = expansion
-        self.in_channels = 128
+        self.in_channels = in_channels
         # shared 3D->2D
-        self.layer1 = TimeDistributed(self._make_layer(BasicBlock, 256, 2, 2))
-        self.layer2 = TimeDistributed(self._make_layer(BasicBlock, 512, 2, 2))
+
+        self.layer1 = TimeDistributed(self._make_layer(BasicBlock, in_channels * 2, 3, 2))
+        self.layer2 = TimeDistributed(self._make_layer(BasicBlock, in_channels * 4, 3, 2))
         self.global_avg = TimeDistributed(nn.AdaptiveAvgPool2d((1, 1)))
         self.classifier = TimeDistributed(
-            nn.Sequential(*[nn.Linear(512, 128), nn.ReLU(inplace=True), nn.Dropout(0.5), nn.Linear(128, num_classes)]))
+            nn.Sequential(*[nn.Linear(in_channels * 4, in_channels), nn.ReLU(inplace=True), nn.Dropout(0.5),
+                            nn.Linear(in_channels, num_classes)]))
 
     def _make_layer(self, block, out_channels, num_blocks, stride):
         strides = [stride] + [1] * (num_blocks - 1)
