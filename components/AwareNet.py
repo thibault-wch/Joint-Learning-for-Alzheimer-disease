@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class AwareNet(nn.Module):
-    def __init__(self, num_classes=2, basic_channels=64, slice_number=256):
+    def __init__(self,num_classes=2, basic_channels=64, slice_number=256):
         super(AwareNet, self).__init__()
         # [1] base feature extractor
         self.basic_module = TimeDistributed(Basic_Fex(in_channels=basic_channels))
@@ -13,8 +13,7 @@ class AwareNet(nn.Module):
         self.fusion_module = Fusion_Fex(num_classes=num_classes, in_channels=basic_channels * 2)
 
     def forward(self, x):
-        x = self.basic_module(x, init=True)
-        print(x.shape)
+        x = self.basic_module(x.squeeze(1), init=True)
         x, slice_attn, local_attn, alpha = self.att_module(x)
         x = self.fusion_module(x)
         x = torch.mean(x, axis=1)
@@ -65,14 +64,11 @@ class Attention(nn.Module):
         ori_x = x
         b, s, c, h, w = ori_x.shape
         local_attention = self.loc_att(x)
-        print(local_attention.shape)
         x = local_attention.squeeze(2)
         k = self.k(x).reshape(b, s, -1)
         q = self.q(x).reshape(b, 1, -1)
-        print(q.shape, k.shape)
         q = torch.nn.functional.normalize(q, dim=-1)
         k = torch.nn.functional.normalize(k, dim=-1)
-        print(q.shape, k.shape)
         attn = (q @ k.transpose(-2, -1)).squeeze(1)
         attn *= self.alpha
         slice_attention = attn.softmax(dim=-1)
@@ -89,7 +85,7 @@ class Fusion_Fex(nn.Module):
         self.in_channels = in_channels
         # shared 3D->2D
 
-        self.layer1 = TimeDistributed(self._make_layer(BasicBlock, in_channels * 2, 3, 2))
+        self.layer1 = TimeDistributed(self._make_layer(BasicBlock, in_channels * 2, 2, 2))
         self.layer2 = TimeDistributed(self._make_layer(BasicBlock, in_channels * 4, 3, 2))
         self.global_avg = TimeDistributed(nn.AdaptiveAvgPool2d((1, 1)))
         self.classifier = TimeDistributed(
